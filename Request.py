@@ -3,7 +3,7 @@
 from datetime import datetime
 import requests
 
-key = "87f9c6a6-aff6-4fcf-9416-051dff4b6bc7"
+key = "KEY"
 
 def checkUserAccount():
     number = input("Type 1 for Hypixel Stats check; Type 2 for Minecraft-Account Information: ")
