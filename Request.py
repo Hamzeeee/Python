@@ -18,7 +18,7 @@ def checkUserAccount():
         playerInformation = requests.get(f"https://api.hypixel.net/player?key={key}&uuid={playerId}").json()
         
 
-        # Terminal Anzeigen
+        # Print in Terminal
         try:
             print("\nHypixel-Stats information: \n")
             print("Rank: " + playerInformation["player"]["newPackageRank"])
