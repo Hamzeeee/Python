@@ -2,20 +2,20 @@
 
 import requests
 
-api_key = "API-KEY"
+api_key = "<INSERT API KEY HERE>"
 
 def flight_direction():
     city_code = input("Insert City code of your Airport: ")
 
     request = requests.get(f"https://airlabs.co/api/v9/schedules?dep_iata={city_code}&api_key={api_key}").json()
 
-    lenght = request['response']
+    length = request['response']
 
-    count = input(f"Amount of Airplanes you want to see (limit is {len(lenght)}): ")
+    count = input(f"Amount of airplanes you want to see (limit is {len(length)}): ")
 
     print("[  Status  ]    [  Airline  ]    [  Depart  ]    [  Landing  ]          [  Started  ]                              [  Landed  ]                  [  Flight ID  ]")
     if count == "all":
-        count = len(lenght)
+        count = len(length)
 
     for x in range(int(count)):
         airline = request['response'][x]['airline_icao']

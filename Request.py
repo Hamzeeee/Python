@@ -3,47 +3,50 @@
 from datetime import datetime
 import requests
 
-key = "KEY"
+hypixel_api_key = "<INSERT KEY HERE>"
 
 def checkUserAccount():
-    number = input("Type 1 for Hypixel Stats check; Type 2 for Minecraft-Account Information: ")
+    number = input("Type 1 for Hypixel Stats check; Type 2 for Minecraft-Account Information:\n")
+    
     if number == "1":
         username = input()
 
         # Mojang API
-        playerUUID = requests.get(f"https://api.mojang.com/users/profiles/minecraft/{username}").json()
-        playerId = playerUUID['id']
+        mojang_player = requests.get(f"https://api.mojang.com/users/profiles/minecraft/{username}").json()
+        player_uuid = mojang_player['id']
 
         # Hypixel API
-        playerInformation = requests.get(f"https://api.hypixel.net/player?key={key}&uuid={playerId}").json()
+        hypixel_player_information = requests.get(f"https://api.hypixel.net/player?key={hypixel_api_key}&uuid={player_uuid}").json()
         
 
         # Print in Terminal
         try:
             print("\nHypixel-Stats information: \n")
-            print("Rank: " + playerInformation["player"]["newPackageRank"])
-            print("Username: " + playerInformation["player"]["displayname"])
+            print("Rank: " + hypixel_player_information["player"]["newPackageRank"])
+            print("Username: " + hypixel_player_information["player"]["displayname"])
            
         except KeyError:
             print("")
             print("Rank: player")
-            print("Username: " + playerInformation["player"]["displayname"])
+            print("Username: " + hypixel_player_information["player"]["displayname"])
         return
     
     if number == "2":
         username = input("Enter Minecraft-Username: ")
 
         # Mojang API
-        api = requests.get(f"https://api.mojang.com/users/profiles/minecraft/{username}").json()
-        playerId = api['id']
+        mojang_player = requests.get(f"https://api.mojang.com/users/profiles/minecraft/{username}").json()
+        player_uuid = mojang_player['id']
 
         # Gapple API
 
-        statusCheck = requests.get(f"https://api.gapple.pw/status/{playerId}").json()
+        statusCheck = requests.get(f"https://api.gapple.pw/status/{player_uuid}").json()
         status = statusCheck["status"]
         if status == "msa" or status == "microsoft":
             status = "Microsoft"
-            print("\nUsername: " + api["name"])
+            print("\nUsername: " + mojang_player["name"])
             print("Status: " + status)
 
-checkUserAccount()
+
+if __name__ == '__main__':
+    checkUserAccount()
